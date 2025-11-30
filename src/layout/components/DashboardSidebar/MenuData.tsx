@@ -79,11 +79,16 @@ const MenuData: React.FC = () => {
   // ].filter(Boolean);
 
   const product = [
-    hasPermissionForModule(permissions, "student") && {
+    {
       key: "/products",
       label: <Link to="/products">Products</Link>,
       icon: <LiaProductHunt />,
     },
+    // hasPermissionForModule(permissions, "student") && {
+    //   key: "/products",
+    //   label: <Link to="/products">Products</Link>,
+    //   icon: <LiaProductHunt />,
+    // },
     hasPermissionForModule(permissions, "student") && {
       key: "/orders",
       label: <Link to="/orders">Orders</Link>,

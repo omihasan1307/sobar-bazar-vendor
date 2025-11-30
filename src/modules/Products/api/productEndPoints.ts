@@ -7,12 +7,43 @@ import { ICreateProduct, IProducts } from "../types/productsType";
 
 const productsEndpoint = api.injectEndpoints({
   endpoints: (builder) => ({
+    getSubCategories: builder.query<
+      ApiResponse<PaginatedResponse<IProducts>>,
+      FilterTypes
+    >({
+      query: (params) => ({
+        url: "/api/v1.0/stores/subcategories/",
+        params,
+      }),
+      providesTags: [
+        {
+          type: TagTypes.PRODUCTS,
+          id: TagTypes.PRODUCTS + "_ID",
+        },
+      ],
+    }),
+    getBrands: builder.query<
+      ApiResponse<PaginatedResponse<IProducts>>,
+      FilterTypes
+    >({
+      query: (params) => ({
+        url: "/api/v1.0/stores/brands/",
+        params,
+      }),
+      providesTags: [
+        {
+          type: TagTypes.PRODUCTS,
+          id: TagTypes.PRODUCTS + "_ID",
+        },
+      ],
+    }),
+
     getProducts: builder.query<
       ApiResponse<PaginatedResponse<IProducts>>,
       FilterTypes
     >({
       query: (params) => ({
-        url: "/api/v1.0/products/",
+        url: "/api/v1.0/stores/products/",
         params,
       }),
       providesTags: [
@@ -25,7 +56,7 @@ const productsEndpoint = api.injectEndpoints({
 
     createProduct: builder.mutation<ApiResponse<ICreateProduct>, FormData>({
       query: (data) => ({
-        url: "/api/v1.0/products/",
+        url: "/api/v1.0/stores/products/",
         method: "POST",
         body: data,
       }),
@@ -42,7 +73,7 @@ const productsEndpoint = api.injectEndpoints({
 
     getSingleProduct: builder.query<ApiResponse<any>, number>({
       query: (studId) => ({
-        url: `/api/v1.0/products/${studId}/`,
+        url: `/api/v1.0/stores/products/${studId}/`,
       }),
 
       providesTags: [
@@ -55,7 +86,7 @@ const productsEndpoint = api.injectEndpoints({
 
     deleteProduct: builder.mutation<ApiResponse<IProducts>, { id: any }>({
       query: ({ id }) => ({
-        url: `/api/v1.0/products/${id}/`,
+        url: `/api/v1.0/stores/products/${id}/`,
         method: "DELETE",
       }),
       invalidatesTags: [
@@ -75,7 +106,7 @@ const productsEndpoint = api.injectEndpoints({
       { id: number | undefined; data: FormData }
     >({
       query: ({ id, data }) => ({
-        url: `/api/v1.0/products/${id}/`,
+        url: `/api/v1.0/stores/products/${id}/`,
         method: "PATCH",
         body: data,
       }),
@@ -93,6 +124,8 @@ const productsEndpoint = api.injectEndpoints({
 });
 
 export const {
+  useGetSubCategoriesQuery,
+  useGetBrandsQuery,
   useGetProductsQuery,
   useCreateProductMutation,
   useGetSingleProductQuery,

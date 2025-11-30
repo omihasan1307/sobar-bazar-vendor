@@ -48,9 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: (
-          <WithPermission requiredPermission="products">
-            <Accounts />
-          </WithPermission>
+          <Accounts />
+          // <WithPermission requiredPermission="products">
+          //   <Accounts />
+          // </WithPermission>
         ),
         children: [
           {

@@ -11,17 +11,7 @@ import {
 } from "../../../utilities/permissionConstant";
 import DeleteButton from "../../../common/CommonAnt/Button/DeleteButton";
 import EditButton from "../../../common/CommonAnt/Button/EditButton";
-import { capitalize } from "../../../common/capitalize/Capitalize";
 import { useDeleteProductMutation } from "../api/productEndPoints";
-
-const statusColors: Record<string, string> = {
-  Pending: "orange",
-  Approved: "green",
-  Rejected: "red",
-  Passed: "blue",
-  Withdrawn: "purple",
-  Failed: "red",
-};
 
 const useProductColumns = (): ColumnsType<any> => {
   // const dispatch = useDispatch();
@@ -54,69 +44,80 @@ const useProductColumns = (): ColumnsType<any> => {
       key: "0",
       title: "SL",
       align: "center",
+      width: 50,
       render: (_text, _record, index) => index + 1,
     },
+
+    // ✅ NEW IMAGE COLUMN
+    {
+      key: "image",
+      title: "Image",
+      align: "center",
+      width: 90,
+      render: (_, record) => {
+        const img = record?.images?.[0]?.image;
+
+        return img ? (
+          <img
+            src={img}
+            alt="product"
+            style={{
+              width: 45,
+              height: 45,
+              objectFit: "cover",
+              borderRadius: 6,
+              border: "1px solid #eee",
+              cursor: "pointer",
+            }}
+            onClick={() => window.open(img, "_blank")}
+          />
+        ) : (
+          <span>-</span>
+        );
+      },
+    },
+
     {
       key: "1",
       title: "Full Name",
-      dataIndex: "first_name",
+      dataIndex: "name",
       align: "left",
       width: 230,
-      render: (_: any, record: any) =>
-        `${record?.first_name} ${record?.last_name}`,
+      render: (_, record) => record?.name,
     },
+
     {
       key: "2",
-      title: "UserID",
-      dataIndex: "user",
+      title: "SKU",
+      dataIndex: "sku",
       align: "center",
       width: 120,
-      sorter: (a, b) => a.user?.username?.localeCompare(b.user?.username || ""),
-      render: (user) => (user?.username ? user.username : "-"),
     },
+
     {
       key: "3",
-      title: "Class",
-      dataIndex: "current_grade_level",
+      title: "Variant",
+      dataIndex: "default_variant",
       align: "center",
-      render: (current_grade_level) =>
-        current_grade_level ? current_grade_level?.name : "-",
-    },
-    {
-      key: "55",
-      title: "Section",
-      dataIndex: "current_section",
-      align: "center",
-      width: 80,
-      render: (current_section) =>
-        current_section ? current_section?.name : "-",
-    },
-    {
-      key: "44",
-      title: "Session",
-      dataIndex: "current_session",
-      align: "center",
-      width: 100,
-      render: (current_session) =>
-        current_session ? current_session?.name : "-",
-    },
-    {
-      key: "66",
-      title: "Shift",
-      dataIndex: "current_shift",
-      align: "center",
-      width: 100,
-      render: (current_shift) => (current_shift ? current_shift?.name : "-"),
+      render: (v) => (v ? v?.name : "-"),
     },
 
     {
       key: "4",
-      title: "Phone",
-      dataIndex: "contact_phone_number",
+      title: "Price",
+      dataIndex: "default_variant",
       align: "center",
-      width: 150,
-      render: (phone_number) => (phone_number ? phone_number : "-"),
+      render: (v) => (v ? v?.price : "-"),
     },
+
+    {
+      key: "5",
+      title: "Stock",
+      dataIndex: "default_variant",
+      align: "center",
+      render: (v) => (v ? v?.stock : "-"),
+    },
+
     {
       key: "6",
       title: "Active",
@@ -130,21 +131,7 @@ const useProductColumns = (): ColumnsType<any> => {
           <Tag color="red">Inactive</Tag>
         ),
     },
-    {
-      key: "999",
-      title: "Admission Status",
-      dataIndex: "current_admission_status",
-      align: "center",
-      width: 130,
-      render: (status: string) => {
-        const color = statusColors[status] || "default";
-        return (
-          <p style={{ backgroundColor: color, color: "white" }}>
-            {capitalize(status)}
-          </p>
-        );
-      },
-    },
+
     {
       title: "Actions",
       align: "center",
@@ -157,10 +144,9 @@ const useProductColumns = (): ColumnsType<any> => {
           )}
 
           <ViewButton to={`student-view/${record?.id}`} />
+
           {deletePermission && (
-            <DeleteButton
-              onConfirm={() => handleDelete(record.id)}
-            ></DeleteButton>
+            <DeleteButton onConfirm={() => handleDelete(record.id)} />
           )}
         </Space>
       ),

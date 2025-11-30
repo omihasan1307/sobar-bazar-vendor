@@ -2,6 +2,44 @@ import { Select, Form } from "antd";
 import { updateStudentField } from "../../app/features/studentAdmissionSlice";
 import { useDispatch } from "react-redux";
 
+interface CommonSelectProps {
+  label?: string;
+  name?: string;
+  placeholder?: string;
+  options?: { label: string; value: string | number }[];
+  mode?: "multiple" | undefined;
+  value?: any;
+  onChange?: (value: any) => void;
+  allowClear?: boolean;
+  className?: string;
+}
+
+export const CommonSelect = ({
+  label,
+  name,
+  placeholder = "Select option",
+  options = [],
+  mode,
+  value,
+  onChange,
+  allowClear = true,
+  className = "",
+}: CommonSelectProps) => {
+  return (
+    <Form.Item label={label} name={name}>
+      <Select
+        className={className}
+        placeholder={placeholder}
+        mode={mode}
+        allowClear={allowClear}
+        value={value}
+        onChange={onChange}
+        options={options}
+      />
+    </Form.Item>
+  );
+};
+
 const GenderSelect = ({ label = "Gender", name = "gender" }) => {
   const dispatch = useDispatch();
   return (

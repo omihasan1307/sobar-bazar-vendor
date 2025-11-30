@@ -21,8 +21,6 @@ import {
 
 import Iconify from "../../../common/IconifyConfig/IconifyConfig";
 import { avatar } from "../../../utilities/images";
-import UpdateTeacherProfile from "../components/UpdateTeacherProfile";
-import UpdateStudentProfile from "../components/UpdatedStudentsProfile";
 import UpdateEmployeeProfile from "../components/UpdatedEmpoyeeProfile";
 import { capitalize } from "../../../common/capitalize/Capitalize";
 import { PasswordTypes } from "../types/profileTypes";
@@ -35,90 +33,36 @@ const Profile: React.FC = () => {
     password: false,
   });
 
-  const { username, teacher, student, employee, role } =
-    profileData?.data || {};
+  const { username, role } = profileData?.data || {};
 
   console.log(profileData?.data);
 
   const renderDescriptions = () => {
-    if (teacher) {
+    if (role?.name && role.store) {
       return [
         {
           key: "1",
-          label: capitalize("first name"),
-          children: capitalize(teacher.first_name || "-"),
+          label: "Store Name",
+          children: capitalize(role.store.name || "-"),
         },
         {
           key: "2",
-          label: capitalize("last name"),
-          children: capitalize(teacher.last_name || "-"),
+          label: "Store Code",
+          children: capitalize(role.store.code || "-"),
         },
         {
           key: "3",
-          label: capitalize("phone number"),
-          children: capitalize(teacher.phone_number || "-"),
-        },
-      ];
-    } else if (student) {
-      return [
-        {
-          key: "1",
-          label: capitalize("student id"),
-          children: capitalize(student.student_id || "-"),
-        },
-        {
-          key: "2",
-          label: capitalize("grade"),
-          children: capitalize(student.grade || "-"),
-        },
-        {
-          key: "3",
-          label: capitalize("email address"),
-          children: capitalize(student.email || "-"),
-        },
-      ];
-    } else if (employee) {
-      return [
-        {
-          key: "1",
-          label: capitalize("employee id"),
-          children: capitalize(employee.employee_id || "-"),
-        },
-        {
-          key: "2",
-          label: capitalize("department"),
-          children: capitalize(employee.department || "-"),
-        },
-        {
-          key: "3",
-          label: capitalize("email address"),
-          children: capitalize(employee.email || "-"),
-        },
-      ];
-    } else if (role?.name === "Admin") {
-      return [
-        {
-          key: "1",
-          label: capitalize("Institution Name"),
-          children: capitalize(role?.institution.name || "-"),
-        },
-        {
-          key: "2",
-          label: capitalize("code"),
-          children: capitalize(role?.institution.code || "-"),
-        },
-        {
-          key: "3",
-          label: capitalize("city"),
-          children: capitalize(role?.institution.city || "-"),
+          label: "City",
+          children: capitalize(role.store.city || "-"),
         },
         {
           key: "4",
-          label: capitalize("contact email"),
-          children: capitalize(role?.institution.contact_email || "-"),
+          label: "Contact Email",
+          children: role.store.contact_email || "-",
         },
       ];
     }
+
     return [];
   };
 
@@ -237,20 +181,8 @@ const Profile: React.FC = () => {
               />
             )}
 
-            {edit.profile && teacher && (
-              <UpdateTeacherProfile
-                data={profileData?.data}
-                onSubmitSuccess={handleProfileUpdateSuccess}
-              />
-            )}
-
-            {edit.profile && student && (
-              <UpdateStudentProfile
-                data={profileData?.data}
-                onSubmitSuccess={handleProfileUpdateSuccess}
-              />
-            )}
-            {edit.profile && student && (
+         
+            {edit.profile && (
               <UpdateEmployeeProfile
                 data={profileData?.data}
                 onSubmitSuccess={handleProfileUpdateSuccess}
