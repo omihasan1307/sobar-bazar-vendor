@@ -32,6 +32,8 @@ import UpdateProfileSetting from "../modules/Profile&Settings/components/UpdateP
 import ProfileSettingView from "../modules/Profile&Settings/components/ProfileSettingView";
 import InvoicesPage from "../modules/invoices/pages/InvoicesPage";
 import MoneyReceiptPage from "../modules/money-receipt/pages/MoneyReceiptPage";
+import StockReservationPage from "../modules/stock-reservations/pages/StockReservationPage";
+import StoreProfilePage from "../modules/store-settings/pages/StoreProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +105,28 @@ const router = createBrowserRouter([
           {
             path: "/money-receipt",
             element: <MoneyReceiptPage />,
+          },
+        ],
+      },
+      // stock-reservation
+      {
+        path: "/stock-reservation",
+        element: <Accounts />,
+        children: [
+          {
+            path: "/stock-reservation",
+            element: <StockReservationPage />,
+          },
+        ],
+      },
+      // store- profile
+      {
+        path: "/store-profile",
+        element: <Accounts />,
+        children: [
+          {
+            path: "/store-profile",
+            element: <StoreProfilePage />,
           },
         ],
       },

@@ -83,8 +83,13 @@ const ProductsPage = () => {
           boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
         }}
       >
-        <Row gutter={[16, 16]} align="middle" justify="space-between">
-          <Col className="-mt-5">
+        <Row
+          gutter={[16, 16]}
+          align="middle"
+          justify="space-between"
+          className="w-full "
+        >
+          <Col className="">
             {!createPermission && (
               <Link to={"/products/create"}>
                 <Button
@@ -99,9 +104,16 @@ const ProductsPage = () => {
           </Col>
 
           {/* Search Section */}
-          <Col xs={24} sm={24} md={8} lg={18} xl={18}>
-            <Row gutter={12}>
-              <Col className="-mt-5">
+          <Col
+            xs={24}
+            sm={24}
+            md={8}
+            lg={18}
+            xl={18}
+            className=" flex items-center justify-end "
+          >
+            <Row gutter={[12, 0]} className=" -mb-5">
+              <Col>
                 <SearchComponent
                   onSearch={(value) =>
                     setFilters((prev) => ({ ...prev, search: value }))

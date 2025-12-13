@@ -1,9 +1,12 @@
 import { Card, Badge, Divider } from "antd";
+import dayjs from "dayjs";
 import { useGetMoneyReceiptsQuery } from "../api/moneyReceiptEndPoints";
 
 export default function ViewMoneyReceipt({ id }: { id: number }) {
   const { data: response, isLoading } = useGetMoneyReceiptsQuery<any>({ id });
-  const receipt = response?.data;
+
+  // ✅ FIX HERE
+  const receipt = response?.data?.results?.[0];
 
   if (isLoading) {
     return (
@@ -22,14 +25,13 @@ export default function ViewMoneyReceipt({ id }: { id: number }) {
   }
 
   return (
-    <div className="flex justify-center bg-gray-100 min-h-screen p-5 md:p-10">
-      <Card className="w-full max-w-3xl p-8 rounded-2xl shadow-lg">
+    <div className="flex justify-center ">
+      <Card className="w-full ">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <h1 className="text-3xl font-bold">Money Receipt</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Money Receipt</h1>
 
           <Badge
-            className="text-sm"
             color={
               receipt.payment_status === "paid"
                 ? "green"
@@ -37,75 +39,48 @@ export default function ViewMoneyReceipt({ id }: { id: number }) {
                 ? "orange"
                 : "red"
             }
-            text={receipt.payment_status}
+            text={receipt.payment_status.toUpperCase()}
           />
         </div>
 
         <Divider />
 
-        {/* Receipt Top Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="space-y-2 text-sm">
+        {/* Receipt Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm">
+          <div className="space-y-2">
             <p>
-              <span className="font-semibold">Receipt Number: </span>
-              {receipt.receipt_number}
+              <strong>Receipt No:</strong> {receipt.receipt_number}
             </p>
             <p>
-              <span className="font-semibold">Receipt Date: </span>
-              {receipt.receipt_date}
+              <strong>Receipt Date:</strong> {receipt.receipt_date}
             </p>
             <p>
-              <span className="font-semibold">Invoice Number: </span>
-              {receipt.invoice_number}
-            </p>
-            <p>
-              <span className="font-semibold">Order Number: </span>
-              {receipt.order_number}
+              <strong>Invoice No:</strong> {receipt.invoice_number}
             </p>
           </div>
 
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2">
             <p>
-              <span className="font-semibold">Payment Method: </span>
-              {receipt.payment_method}
+              <strong>Payment Method:</strong> {receipt.payment_method}
             </p>
             <p>
-              <span className="font-semibold">Transaction ID: </span>
-              {receipt.transaction_id}
-            </p>
-            <p>
-              <span className="font-semibold">Created At: </span>
-              {receipt.created_at}
-            </p>
-            <p>
-              <span className="font-semibold">Updated At: </span>
-              {receipt.updated_at || "N/A"}
+              <strong>Created At:</strong>{" "}
+              {dayjs(receipt.created_at).format("DD MMM YYYY, hh:mm A")}
             </p>
           </div>
         </div>
 
         <Divider />
 
-        {/* Money Section */}
-        <div className="bg-gray-50 border p-5 rounded-xl mb-6">
-          <p className="text-lg font-semibold">Payment Summary</p>
-
-          <div className="flex justify-between mt-3 text-base">
-            <span className="font-medium">Amount:</span>
-            <span className="font-bold text-green-600 text-xl">
-              ${receipt.amount}
+        {/* Amount */}
+        <div className="bg-gray-50 border rounded-xl p-5">
+          <div className="flex justify-between items-center">
+            <span className="text-base font-medium">Total Amount</span>
+            <span className="text-2xl font-bold text-green-600">
+              ৳ {receipt.amount}
             </span>
           </div>
         </div>
-
-        {/* Notes Section */}
-        {receipt.notes && (
-          <>
-            <Divider />
-            <h2 className="text-lg font-semibold mb-1">Notes</h2>
-            <p className="text-gray-600">{receipt.notes}</p>
-          </>
-        )}
       </Card>
     </div>
   );

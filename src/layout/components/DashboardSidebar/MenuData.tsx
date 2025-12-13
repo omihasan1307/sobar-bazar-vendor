@@ -6,7 +6,6 @@ import SidebarTop from "./SidebarTop";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import { ThemesTypes } from "../../../app/features/themeSlice";
-import SidebarButtom from "./SidebarButtom";
 
 import { useGetDashboardDataQuery } from "../../../modules/Dashboard/api/dashoboardEndPoints";
 import { hasPermissionForModule } from "../../../utilities/permission";
@@ -14,6 +13,9 @@ import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import { LiaProductHunt } from "react-icons/lia";
 import { IoCartOutline } from "react-icons/io5";
 import { HiOutlineDocumentReport } from "react-icons/hi";
+import { PiMoneyWavy } from "react-icons/pi";
+import { TbFileInvoice } from "react-icons/tb";
+import { AiOutlineStock } from "react-icons/ai";
 
 const MenuData: React.FC = () => {
   const { themes } = useSelector<RootState, ThemesTypes>(
@@ -97,13 +99,23 @@ const MenuData: React.FC = () => {
     {
       key: "/money-receipt",
       label: <Link to="/money-receipt">Money Receipt</Link>,
-      icon: <IoCartOutline />,
+      icon: <PiMoneyWavy />,
     },
 
     {
       key: "/invoices",
       label: <Link to="/invoices">Invoices</Link>,
-      icon: <IoCartOutline />,
+      icon: <TbFileInvoice />,
+    },
+    {
+      key: "/stock-reservation",
+      label: <Link to="/stock-reservation">Stock Reservation</Link>,
+      icon: <AiOutlineStock />,
+    },
+    {
+      key: "/store-profile",
+      label: <Link to="/store-profile">Store Profile</Link>,
+      icon: <AiOutlineStock />,
     },
     hasPermissionForModule(permissions, "student") && {
       key: "/earning-report",
@@ -158,7 +170,7 @@ const MenuData: React.FC = () => {
       <br />
       <br />
 
-      <SidebarButtom />
+      {/* <SidebarButtom /> */}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { useUpdateProfileMutation } from "../api/profileEndpoint";
 
-const UpdateStudentProfile = ({
+const UpdateProfile = ({
   data,
   onSubmitSuccess,
 }: {
@@ -17,7 +17,7 @@ const UpdateStudentProfile = ({
   const onFinish: FormProps<any>["onFinish"] = async (values) => {
     const formattedData = {
       username: values.username,
-      student: {
+      employee: {
         first_name: values.first_name,
         last_name: values.last_name,
         phone_number: values.phone_number,
@@ -69,4 +69,4 @@ const UpdateStudentProfile = ({
   );
 };
 
-export default UpdateStudentProfile;
+export default UpdateProfile;

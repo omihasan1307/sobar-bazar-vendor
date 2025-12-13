@@ -15,6 +15,8 @@ export const TagTypes = {
   MONEY_RECEIPTS: "Money_Receipts",
   EARNING_REPORT: "Earning_Report",
   PROFILE_SETTING: "Profile_Setting",
+  STOCK_RESERVATION: "Stock_Reservation",
+  STORE_SETTINGS: "Store_Settings",
 
   // school
   INSTITUTE_PROFILE: "Institution_Profile",

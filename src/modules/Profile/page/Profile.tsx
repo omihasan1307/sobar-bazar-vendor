@@ -21,7 +21,7 @@ import {
 
 import Iconify from "../../../common/IconifyConfig/IconifyConfig";
 import { avatar } from "../../../utilities/images";
-import UpdateEmployeeProfile from "../components/UpdatedEmpoyeeProfile";
+import UpdateProfile from "../components/UpdatedProfile";
 import { capitalize } from "../../../common/capitalize/Capitalize";
 import { PasswordTypes } from "../types/profileTypes";
 import { passwordValidator } from "../../../utilities/validator";
@@ -181,9 +181,8 @@ const Profile: React.FC = () => {
               />
             )}
 
-         
             {edit.profile && (
-              <UpdateEmployeeProfile
+              <UpdateProfile
                 data={profileData?.data}
                 onSubmitSuccess={handleProfileUpdateSuccess}
               />

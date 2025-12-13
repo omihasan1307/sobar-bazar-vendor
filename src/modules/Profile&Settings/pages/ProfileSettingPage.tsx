@@ -118,7 +118,7 @@ const ProfileSettingPage = () => {
           title={
             <div className="flex justify-between items-center">
               <div className="space-x-5">
-                <span>All ProfileSetting</span>
+                <span>All Profile Setting</span>
                 <Link
                   to={`/admission/create-admission`}
                   className="w-fit underline text-blue-400 cursor-pointer text-sm font-normal"

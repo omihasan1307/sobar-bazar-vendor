@@ -23,7 +23,10 @@ import GenderSelect, {
 } from "../../../common/commonField/commonFeild";
 
 import { UserOutlined } from "@ant-design/icons";
-import { useGetSingleProductQuery, useUpdateProductMutation } from "../api/productEndPoints";
+import {
+  useGetSingleProductQuery,
+  useUpdateProductMutation,
+} from "../api/productEndPoints";
 
 const { Title, Text } = Typography;
 
